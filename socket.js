@@ -1,5 +1,6 @@
 
 const socket = require('socket.io')
+const NotificationModel = require("./api/models/notification.model");
 
 module.exports = (server) => {
     let io = socket(server, {
@@ -19,6 +20,7 @@ module.exports = (server) => {
         })
 
         socket.on('notify', async (data) => {
+            await NotificationModel.createNotification(data)
             io.emit('notify', data)
         })
     })

@@ -23,3 +23,46 @@ exports.createTable = () => {
         console.log('Service availability table is created!')
     });
 }
+
+/**
+ * @param query
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getServiceAvailabilityWhere = async (query) => await DBInstance
+    .from(tableName)
+    .where(query)
+    .select()
+
+/**
+ * @param document
+ * @returns {Promise<Knex.QueryBuilder<{}, number[]>>}
+ */
+exports.createServiceAvailability = async (document) => await DBInstance
+    .from(tableName)
+    .insert(document)
+
+/**
+ * @param document
+ * @param service_availability_id
+ * @returns {Promise<Knex.QueryBuilder<{}, number>>}
+ */
+exports.updateServiceAvailability = async (document, service_availability_id) => await DBInstance
+    .where({service_availability_id})
+    .from(tableName)
+    .update(document)
+
+/**
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getAllServiceAvailability = async () => await DBInstance
+    .from(tableName)
+    .select()
+
+/**
+ * @param service_availability_id
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, number>>}
+ */
+exports.deleteServiceAvailability = async (service_availability_id) => await DBInstance
+    .from(tableName)
+    .where({service_availability_id})
+    .delete()

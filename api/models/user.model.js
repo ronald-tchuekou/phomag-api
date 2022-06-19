@@ -28,3 +28,46 @@ exports.createTable = () => {
         console.log('Users table is created!')
     });
 }
+
+/**
+ * @param query
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getUserWhere = async (query) => await DBInstance
+    .from(tableName)
+    .where(query)
+    .select()
+
+/**
+ * @param document
+ * @returns {Promise<Knex.QueryBuilder<{}, number[]>>}
+ */
+exports.createUser = async (document) => await DBInstance
+    .from(tableName)
+    .insert(document)
+
+/**
+ * @param document
+ * @param user_id
+ * @returns {Promise<Knex.QueryBuilder<{}, number>>}
+ */
+exports.updateUser = async (document, user_id) => await DBInstance
+    .where({user_id})
+    .from(tableName)
+    .update(document)
+
+/**
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getAllUser = async () => await DBInstance
+    .from(tableName)
+    .select()
+
+/**
+ * @param matricule
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, number>>}
+ */
+exports.deleteUser = async (matricule) => await DBInstance
+    .from(tableName)
+    .where({matricule})
+    .delete()

@@ -35,3 +35,46 @@ exports.createTable = () => {
         console.log('Requests table is created!')
     });
 }
+
+/**
+ * @param query
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getRequestWhere = async (query) => await DBInstance
+    .from(tableName)
+    .where(query)
+    .select()
+
+/**
+ * @param document
+ * @returns {Promise<Knex.QueryBuilder<{}, number[]>>}
+ */
+exports.createRequest = async (document) => await DBInstance
+    .from(tableName)
+    .insert(document)
+
+/**
+ * @param document
+ * @param request_id
+ * @returns {Promise<Knex.QueryBuilder<{}, number>>}
+ */
+exports.updateRequest = async (document, request_id) => await DBInstance
+    .where({request_id})
+    .from(tableName)
+    .update(document)
+
+/**
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getAllRequest = async () => await DBInstance
+    .from(tableName)
+    .select()
+
+/**
+ * @param request_id
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, number>>}
+ */
+exports.deleteRequest = async (request_id) => await DBInstance
+    .from(tableName)
+    .where({request_id})
+    .delete()

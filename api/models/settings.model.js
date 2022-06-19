@@ -16,3 +16,46 @@ exports.createTable = () => {
         console.log('Settings table is created!')
     });
 }
+
+/**
+ * @param query
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getSettingWhere = async (query) => await DBInstance
+    .from(tableName)
+    .where(query)
+    .select()
+
+/**
+ * @param document
+ * @returns {Promise<Knex.QueryBuilder<{}, number[]>>}
+ */
+exports.createSetting = async (document) => await DBInstance
+    .from(tableName)
+    .insert(document)
+
+/**
+ * @param document
+ * @param setting_id
+ * @returns {Promise<Knex.QueryBuilder<{}, number>>}
+ */
+exports.updateSetting = async (document, setting_id) => await DBInstance
+    .where({setting_id})
+    .from(tableName)
+    .update(document)
+
+/**
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
+ */
+exports.getAllSetting = async () => await DBInstance
+    .from(tableName)
+    .select()
+
+/**
+ * @param setting_id
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, number>>}
+ */
+exports.deleteSetting = async (setting_id) => await DBInstance
+    .from(tableName)
+    .where({setting_id})
+    .delete()

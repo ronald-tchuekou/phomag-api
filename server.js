@@ -6,6 +6,9 @@ const compression = require('compression')
 const cors = require("cors")
 
 const authRoutes = require('./api/routes/auth.route')
+const notificationRoutes = require('./api/routes/notification.route')
+const PrinterServiceRoutes = require('./api/routes/printer-service.route')
+const RequestRoutes = require('./api/routes/request.route')
 
 // Get the application.
 const app = express()
@@ -50,7 +53,10 @@ require('./api/models/notification.model').createTable()
 app.get('/', (req, res) => {
     res.send('Welcome to api of PhoMag application')
 })
-app.use('/auth', authRoutes)
+app.use('/', authRoutes)
+app.use('/', notificationRoutes)
+app.use('/', PrinterServiceRoutes)
+app.use('/', RequestRoutes)
 
 // Server listening.
 const port = process.env.PORT || 3400;
