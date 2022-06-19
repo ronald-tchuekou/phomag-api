@@ -1,7 +1,7 @@
 const express = require('express')
 const controller = require('../controllers/auth.controller')
 
-const router = express.Router
+const router = express.Router()
 
 router.post('/auth/sing-in', controller.singIn)
 
