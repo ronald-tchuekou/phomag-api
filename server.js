@@ -49,6 +49,9 @@ require('./api/models/request.model').createTable()
 require('./api/models/service_availability.model').createTable()
 require('./api/models/notification.model').createTable()
 
+// Services
+require('./service').getPersonnels()
+
 // Routes
 app.get('/', (req, res) => {
     res.send('Welcome to api of PhoMag application')
