@@ -29,6 +29,17 @@ exports.createTable = () => {
     });
 }
 
+exports.addFonctionColumn = () => {
+    DBInstance.schema.hasColumn(tableName, 'fonction').then(function (exists) {
+        if (!exists) {
+            return DBInstance.schema.table(tableName, (table) => {
+                table.string('fonction', 255)
+            })
+        }
+        console.log('Added fonction column to Users table!')
+    })
+}
+
 /**
  * @param query
  * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}

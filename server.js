@@ -43,6 +43,7 @@ app.use(express.static(__dirname + '/public'))
 
 // Connection for mysql database.
 require('./api/models/user.model').createTable()
+require('./api/models/user.model').addFonctionColumn()
 require('./api/models/settings.model').createTable()
 require('./api/models/printer-service.model').createTable()
 require('./api/models/request.model').createTable()
