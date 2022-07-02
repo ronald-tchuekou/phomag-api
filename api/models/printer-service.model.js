@@ -1,4 +1,5 @@
 const db_config = require('../config/database.conf')
+const { UserTableName } = require('./user.model')
 
 const DBInstance = db_config.getDBInstance()
 const tableName = 'printer_services'
@@ -31,6 +32,20 @@ exports.addServiceAddressColumn = () => {
         if (!exists) {
             return DBInstance.schema.table(tableName, (table) => {
                 table.string('service_address', 255)
+            })
+        }
+        console.log('Added service_address column to Printer service table!')
+    })
+}
+
+exports.addCreatedByColumn = () => {
+    DBInstance.schema.hasColumn(tableName, 'created_by').then(function (exists) {
+        if (!exists) {
+            return DBInstance.schema.table(tableName, (table) => {
+                table.integer('created_by', 255).unsigned().index()
+                   .references('user_id')
+                   .inTable(UserTableName)
+                   .onDelete('SET NULL')
             })
         }
         console.log('Added service_address column to Printer service table!')
