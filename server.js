@@ -9,6 +9,7 @@ const authRoutes = require('./api/routes/auth.route')
 const notificationRoutes = require('./api/routes/notification.route')
 const PrinterServiceRoutes = require('./api/routes/printer-service.route')
 const RequestRoutes = require('./api/routes/request.route')
+const UserRoutes = require('./api/routes/user.route')
 
 // Get the application.
 const app = express()
@@ -61,6 +62,7 @@ app.use('/', authRoutes)
 app.use('/', notificationRoutes)
 app.use('/', PrinterServiceRoutes)
 app.use('/', RequestRoutes)
+app.use('/', UserRoutes)
 
 // Server listening.
 const port = process.env.PORT || 3400;
