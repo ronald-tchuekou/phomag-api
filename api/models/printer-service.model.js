@@ -26,6 +26,17 @@ exports.createTable = () => {
     });
 }
 
+exports.addServiceAddressColumn = () => {
+    DBInstance.schema.hasColumn(tableName, 'service_address').then(function (exists) {
+        if (!exists) {
+            return DBInstance.schema.table(tableName, (table) => {
+                table.string('service_address', 255)
+            })
+        }
+        console.log('Added service_address column to Printer service table!')
+    })
+}
+
 /**
  * @param query
  * @returns {Promise<awaited Knex.QueryBuilder<TRecord, TResult>>}
