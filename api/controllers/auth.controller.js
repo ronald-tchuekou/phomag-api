@@ -11,7 +11,7 @@ exports.singIn = async (req, res) => {
         if(response.length === 0)
             response = await UserModal.getUserWhere({matricule: req.body.username})
         if(response.length === 0)
-            response = await PrinterServiceModal.getPrinterServiceWhere({email: req.body.username})
+            response = await PrinterServiceModal.getPrinterServiceWhere({service_email: req.body.username})
         if(response.length === 0)
             return res.status(400).json({
                 message: 'Your email address or matricule isn\'t correct!',
