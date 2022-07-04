@@ -7,7 +7,7 @@
 const express = require('express')
 const updload = require('../utils/upload')
 const controller = require('../controllers/file.controller')
-const { authJwt } = require('../middlewares')
+const authJWT = require('../middelwares/authJWT')
 
 const route = express.Router()
 
@@ -18,7 +18,7 @@ route.use(function (req, res, next) {
 
 route.post(
    '/files/document',
-   [authJwt.verifyToken, updload.documentUpload.single('file')],
+   [authJWT.verifyToken, updload.documentUpload.single('file')],
    controller.createFile,
    (err, req, res) => {
       res.status(400).send({ message: err.message })
@@ -26,7 +26,7 @@ route.post(
 )
 route.put(
    '/files/document',
-   [authJwt.verifyToken, updload.documentUpload.single('file')],
+   [authJWT.verifyToken, updload.documentUpload.single('file')],
    controller.updateFile,
    (err, req, res) => {
       res.status(400).send({ message: err.message })
@@ -34,7 +34,7 @@ route.put(
 )
 route.post(
    '/files/avatar',
-   [authJwt.verifyToken, updload.avatarUpload.single('file')],
+   [authJWT.verifyToken, updload.avatarUpload.single('file')],
    controller.createFile,
    (err, req, res) => {
       res.status(400).send({ message: err.message })
@@ -42,13 +42,13 @@ route.post(
 )
 route.put(
    '/files/avatar',
-   [authJwt.verifyToken, updload.avatarUpload.single('file')],
+   [authJWT.verifyToken, updload.avatarUpload.single('file')],
    controller.updateFile,
    (err, req, res) => {
       res.status(400).send({ message: err.message })
    }
 )
-route.delete('/files', [authJwt.verifyToken], controller.deleteFile)
+route.delete('/files', [authJWT.verifyToken], controller.deleteFile)
 route.get('/files', controller.getFile)
 
 module.exports = route
