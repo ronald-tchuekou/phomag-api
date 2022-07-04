@@ -7,10 +7,11 @@ const cors = require('cors')
 
 const authRoutes = require('./api/routes/auth.route')
 const notificationRoutes = require('./api/routes/notification.route')
-const PrinterServiceRoutes = require('./api/routes/printer-service.route')
-const RequestRoutes = require('./api/routes/request.route')
-const UserRoutes = require('./api/routes/user.route')
-const DisponibilityRoute = require('./api/routes/disponibility.route')
+const printerServiceRoutes = require('./api/routes/printer-service.route')
+const requestRoutes = require('./api/routes/request.route')
+const userRoutes = require('./api/routes/user.route')
+const disponibilityRoute = require('./api/routes/disponibility.route')
+const fileRoute = require('./api/routes/file.route')
 
 // Get the application.
 const app = express()
@@ -62,10 +63,11 @@ app.get('/', (req, res) => {
 })
 app.use('/', authRoutes)
 app.use('/', notificationRoutes)
-app.use('/', PrinterServiceRoutes)
-app.use('/', RequestRoutes)
-app.use('/', UserRoutes)
-app.use('/', DisponibilityRoute)
+app.use('/', printerServiceRoutes)
+app.use('/', requestRoutes)
+app.use('/', userRoutes)
+app.use('/', disponibilityRoute)
+app.use('/', fileRoute)
 
 // Server listening.
 const port = process.env.PORT || 3400
