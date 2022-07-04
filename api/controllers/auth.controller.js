@@ -43,7 +43,7 @@ exports.singIn = async (req, res) => {
                },
                user.user_id
             )
-            const userResult = user.role !== 'Pinter' ? {
+            const userResult = user.role === 'Pinter' ? {
                created_at: user.cdreated_at,
                created_token: null,
                department: null,
