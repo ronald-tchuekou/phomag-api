@@ -10,6 +10,7 @@ const notificationRoutes = require('./api/routes/notification.route')
 const PrinterServiceRoutes = require('./api/routes/printer-service.route')
 const RequestRoutes = require('./api/routes/request.route')
 const UserRoutes = require('./api/routes/user.route')
+const DisponibilityRoute = require('./api/routes/disponibility.route')
 
 // Get the application.
 const app = express()
@@ -19,16 +20,14 @@ app.use(helmet())
 app.use(cors())
 app.use(compression())
 app.use(bodyparser.json({ limit: '50mb' }))
-app.use(bodyparser.urlencoded({
-   limit: '50mb',
-   parameterLimit: 100000,
-   extended: true
-}))
-app.use((
-   req,
-   res,
-   next
-) => {
+app.use(
+   bodyparser.urlencoded({
+      limit: '50mb',
+      parameterLimit: 100000,
+      extended: true,
+   })
+)
+app.use((req, res, next) => {
    res.header('Access-Control-Allow-Origin', '*')
    res.header(
       'Access-Control-Allow-Headers',
@@ -52,6 +51,7 @@ require('./api/models/printer-service.model').addCreatedByColumn()
 require('./api/models/request.model').createTable()
 require('./api/models/service_availability.model').createTable()
 require('./api/models/notification.model').createTable()
+require('./api/models/disponibility.model').createTable()
 
 // Services
 require('./service').getPersonnels()
@@ -65,6 +65,7 @@ app.use('/', notificationRoutes)
 app.use('/', PrinterServiceRoutes)
 app.use('/', RequestRoutes)
 app.use('/', UserRoutes)
+app.use('/', DisponibilityRoute)
 
 // Server listening.
 const port = process.env.PORT || 3400

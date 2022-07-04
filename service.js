@@ -22,10 +22,9 @@ class Personal {
  */
 const isTeacher = (item) => {
    const job = (item.LASTJOB || '').toLowerCase().trim()
-   return job.includes('enseignant') ||
-      job.includes('enseignante') ||
-      job.includes('teacher') ||
-      job.includes('teaching')
+   return (
+      job.includes('enseignant') || job.includes('enseignante') || job.includes('teacher') || job.includes('teaching')
+   )
 }
 
 /**
@@ -35,36 +34,40 @@ const isTeacher = (item) => {
  */
 const isManager = (item) => {
    const job = (item.LASTJOB || '').toLowerCase().trim()
-   return job.includes('chef de departement') ||
+   return (
+      job.includes('chef de departement') ||
       job.includes('chef du departement') ||
       job.includes('chef de département') ||
       job.includes('chef du département')
+   )
 }
 
 const getPersonnels = () => {
    const options = {
-      'method': 'GET',
-      'url': 'https://galioserver.myiuc.com/employees?apiGKey=$iL@0n!Y@1aQuE@2dE@3GrAnDe@4PaSsIoN@5pOuR@6eNfAnTeR@7dE@8gRaNdS@9hOmMeS$',
-      'headers': {}
+      method: 'GET',
+      url: 'https://galioserver.myiuc.com/employees?apiGKey=$iL@0n!Y@1aQuE@2dE@3GrAnDe@4PaSsIoN@5pOuR@6eNfAnTeR@7dE@8gRaNdS@9hOmMeS$',
+      headers: {},
    }
-   request(options, async function(error, response) {
+   request(options, async function (error, response) {
       if (error) {
          console.log(error)
          return
       }
       const data = JSON.parse(response.body)
-      const result = data.filter(
-         /**
-          * @param {Personal} item
-          * @returns {false|*}
-          */
-         item => (isTeacher(item) || isManager(item)) && item.ACTIVED)
+      const result = data
+         .filter(
+            /**
+             * @param {Personal} item
+             * @returns {false|*}
+             */
+            (item) => (isTeacher(item) || isManager(item)) && item.ACTIVED
+         )
          .map(
             /**
              * @param {Personal} item
              * @returns any
              */
-            item => ({
+            (item) => ({
                matricule: item.MATRICULE,
                firstname: item.FIRSTNAME,
                lastname: item.LASTNAME,
@@ -75,8 +78,9 @@ const getPersonnels = () => {
                password: bcrypt.hashSync('password', 8),
                image_profile: 'default_profile.png',
                role: isTeacher(item) ? 'Teacher' : 'Chief',
-               created_token: bcrypt.hashSync('created_token', 5)
-            }))
+               created_token: bcrypt.hashSync('created_token', 5),
+            })
+         )
       try {
          await UserModel.createUser(result)
          console.log('All users is set !')
