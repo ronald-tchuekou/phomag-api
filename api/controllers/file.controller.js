@@ -14,11 +14,21 @@ exports.createFile = (req, res) => {
 exports.getFile = async (req, res) => {
    try {
       const bucket = req.query.bucket
-      const filename = req.query.filename
+      let filename = req.query.filename
       const file = `${__dirname}/../../public/${bucket}/${filename}`
-      res.download(file)
+      let readStream = fs.createReadStream(file)
+      filename = encodeURIComponent(filename)
+      readStream.on('open', function () {
+         res.setHeader('Content-disposition', `inline; filename=${filename}`)
+         res.setHeader('Content-type', 'application/pdf')
+         res.setHeader('Accept', 'image/*, application/pdf')
+         readStream.pipe(res)
+      })
+      readStream.on('error', function (err) {
+         res.end(err)
+      })
    } catch (e) {
-      res.status(400).send({ message: 'Une erreur est survenu lors de la suppression du fichier.' })
+      res.status(400).send({ message: "Une erreur est survenu lors de l'affichage du fichier.", error: e.message })
    }
 }
 
