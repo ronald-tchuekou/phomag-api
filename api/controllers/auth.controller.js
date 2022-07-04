@@ -56,7 +56,7 @@ exports.singIn = async (req, res) => {
                notification_token: user.notification_token,
                password: user.password,
                phone: user.service_phone,
-               role: user.role,
+               role: 'Printer',
                sex: null,
                updated_at: user.updated_at,
                user_id: user.printer_service_id,
