@@ -19,8 +19,9 @@ exports.getFile = async (req, res) => {
       let readStream = fs.createReadStream(file)
       filename = encodeURIComponent(filename)
       readStream.on('open', function () {
-         res.setHeader('Content-disposition', `inline; filename=${filename}`)
-         res.setHeader('Content-type', 'application/pdf')
+         // res.setHeader('Content-disposition', `inline; filename=${filename}`)
+         res.setHeader('X-Download-Options', 'open')
+         res.setHeader('Content-type', bucket === 'documents' ? 'application/pdf' : 'image/*')
          readStream.pipe(res)
       })
       readStream.on('error', function (err) {
