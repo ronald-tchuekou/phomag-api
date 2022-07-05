@@ -21,7 +21,6 @@ exports.getFile = async (req, res) => {
       readStream.on('open', function () {
          res.setHeader('Content-disposition', `inline; filename=${filename}`)
          res.setHeader('Content-type', 'application/pdf')
-         res.setHeader('Accept', 'image/*, application/pdf')
          readStream.pipe(res)
       })
       readStream.on('error', function (err) {
