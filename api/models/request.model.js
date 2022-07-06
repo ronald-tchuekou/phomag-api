@@ -51,7 +51,6 @@ exports.createTable = () => {
  */
 exports.getRequestWhere = async (query) =>
    await DBInstance.join(UserTableName, tableName + '.author_id', UserTableName + '.user_id')
-      .join(PrinterServiceTableName, tableName + '.printer_id', PrinterServiceTableName + '.printer_service_id')
       .from(tableName)
       .where(query)
       .select()
@@ -75,7 +74,6 @@ exports.updateRequest = async (document, request_id) =>
  */
 exports.getAllRequest = async () =>
    await DBInstance.join(UserTableName, tableName + '.author_id', UserTableName + '.user_id')
-      .join(PrinterServiceTableName, tableName + '.printer_id', PrinterServiceTableName + '.printer_service_id')
       .from(tableName)
       .select()
 
