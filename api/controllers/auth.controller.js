@@ -25,7 +25,7 @@ exports.singIn = async (req, res) => {
          })
       const pattern = {
          id: user.role === 'Pinter' ? user.printer_service_id : user.user_id,
-         role: user.role,
+         role: user.role === 'Pinter' ? 'Printer' : user.role,
       }
       jwt.sign(pattern, config.secret, {}, async (err, token) => {
          if (err) {
