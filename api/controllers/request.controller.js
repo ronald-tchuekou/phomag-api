@@ -34,7 +34,6 @@ exports.getValidatorRequests = async (req, res) => {
    try {
       const query = req.query.status ? { request_status: req.query.status } : {}
       const response = await RequestModel.getRequestWhere({
-         validator_id: req.user_id,
          ...query,
       })
       res.json(response)
