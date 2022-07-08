@@ -25,7 +25,7 @@ exports.getFile = async (req, res) => {
          readStream.pipe(res)
       })
       readStream.on('error', function (err) {
-         res.end(err)
+         res.status(400).send({ message: "Une erreur est survenu lors de l'affichage du fichier.", error: err.message })
       })
    } catch (e) {
       res.status(400).send({ message: "Une erreur est survenu lors de l'affichage du fichier.", error: e.message })
