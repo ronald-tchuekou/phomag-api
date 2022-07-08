@@ -66,6 +66,21 @@ exports.getPrinterRequests = async (req, res) => {
    }
 }
 
+exports.getPrinterRequestsById = async (req, res) => {
+   try {
+      const response = await RequestModel.getRequestWhere({
+         printer_id: req.params.printer_id,
+      })
+      res.json(response)
+   } catch (error) {
+      console.log(error)
+      res.status(400).json({
+         message: 'Error are provided!',
+         error: error.message,
+      })
+   }
+}
+
 exports.createRequest = async (req, res) => {
    try {
       const response = await RequestModel.createRequest(req.body)
