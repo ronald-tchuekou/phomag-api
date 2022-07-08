@@ -5,6 +5,7 @@ const authJWT = require('../middelwares/authJWT')
 const router = express.Router()
 
 router.get('/request', controller.getAllRequests)
+router.get('/request/assign', controller.assignRequest)
 router.get('/request/author', [authJWT.verifyToken, authJWT.isTeacher], controller.getAuthorRequests)
 router.get('/request/validator', [authJWT.verifyToken, authJWT.isChief], controller.getValidatorRequests)
 router.get('/request/printer', [authJWT.verifyToken, authJWT.isPrinter], controller.getPrinterRequests)

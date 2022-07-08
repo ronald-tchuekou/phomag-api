@@ -52,6 +52,9 @@ exports.update = async (document, availability_id) =>
  */
 exports.get = async () => await DBInstance.from(tableName).select()
 
+exports.getWherePrinterIdIn = async (list) =>
+   await DBInstance.from(tableName).whereIn('printer_id', list).select().orderBy('date', 'desc')
+
 /**
  * @param availability_id
  * @returns {Promise<awaited Knex.QueryBuilder<TRecord, number>>}
