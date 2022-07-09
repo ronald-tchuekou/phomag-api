@@ -86,14 +86,14 @@ exports.getPrinterRequestsById = async (req, res) => {
 exports.createRequest = async (req, res) => {
    try {
       const response = await RequestModel.createRequest(req.body)
-      const fetch = await UserModel.getUserWhere({user_id: req.body.author_id})[0]
+      const fetch = await UserModel.getUserWhere({user_id: req.body.author_id})
       const count = JSON.parse(req.body.document_list || '[]').length
       socket.emit('notify', {
          title: 'Request initialized',
-         message: `${fetch.lastname} ${fetch.firstname} are init a new request that contain ${count} document(s) to print.`,
+         message: `${fetch[0].lastname} ${fetch[0].firstname} are init a new request that contain ${count} document(s) to print.`,
          is_read: false,
          type: 'REQUEST',
-         sender_id: `user_${fetch.user_id}`,
+         sender_id: `user_${fetch[0].user_id}`,
          receiver_id: `chief`,
       })
       res.json(response)
