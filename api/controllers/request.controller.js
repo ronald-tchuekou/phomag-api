@@ -231,7 +231,7 @@ exports.assignRequest = async (req, res) => {
             'The new request is validate and assigned to you. Please try to printed it and set to this app that you are finish to print it.',
          is_read: false,
          type: 'REQUEST',
-         sender_id: 'user_' + req.user_id,
+         sender_id: 'user_' + req.query.validator_id,
          receiver_id: 'printer_' + valid_availabilities[0].printer_id,
          request_id: request_id,
       })
