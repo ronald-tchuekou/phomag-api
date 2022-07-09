@@ -1,6 +1,8 @@
 const RequestModel = require('../models/request.model')
 const PrinterModel = require('../models/printer-service.model')
+const UserModel  = require('../models/user.model')
 const DisponibilityModel = require('../models/disponibility.model')
+const socket = require('../config/socket-client.config')
 const moment = require('moment')
 
 exports.getAllRequests = async (req, res) => {
@@ -84,6 +86,16 @@ exports.getPrinterRequestsById = async (req, res) => {
 exports.createRequest = async (req, res) => {
    try {
       const response = await RequestModel.createRequest(req.body)
+      const fetch = await UserModel.getUserWhere({user_id: req.body.author_id})[0]
+      const count = JSON.parse(req.body.document_list || '[]').length
+      socket.emit('notify', {
+         title: 'Request initialized',
+         message: `${fetch.lastname} ${fetch.firstname} are init a new request that contain ${count} document(s) to print.`,
+         is_read: false,
+         type: 'REQUEST',
+         sender_id: `user_${fetch.user_id}`,
+         receiver_id: `chief`,
+      })
       res.json(response)
    } catch (e) {
       console.log(e)

@@ -14,8 +14,8 @@ exports.createTable = () => {
             table.text('message')
             table.boolean('is_read').defaultTo(false)
             table.enum('type', ['REQUEST', 'INFO'])
-            table.integer('sender_id', 10).unsigned().index()
-            table.integer('receiver_id', 10).unsigned().index()
+            table.string('sender_id', 255).index()
+            table.string('receiver_id', 255).index()
             table
                .integer('request_id', 10)
                .unsigned()
