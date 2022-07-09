@@ -141,14 +141,14 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
       is_read: false,
       type: 'REQUEST',
       sender_id: validator_id ? 'user_' + validator_id : 'printer_' + printer_id,
-      receiver_id: request.author_id,
+      receiver_id: 'user_' + request.author_id,
       request_id: request.request_id,
    })
 }
 
 exports.updateRequest = async (req, res) => {
    try {
-      const res = await RequestModel.updateRequest(req.body, req.params.id)
+      await RequestModel.updateRequest(req.body, req.params.id)
       const response = (await RequestModel.getRequestWhere({ request_id: req.params.id }))[0]
       if (req.body.validator_id || req.body.request_status === 'PRINTED')
          notifyThis(req.body.validator_id, req.body.request_status, response, req.body.printer_id)
