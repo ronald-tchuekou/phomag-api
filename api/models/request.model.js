@@ -54,7 +54,7 @@ exports.getRequestWhere = async (query) =>
       .from(tableName)
       .where(query)
       .select()
-      .orderBy('created_at', 'desc')
+      .orderBy(tableName + '.created_at', 'desc')
 
 /**
  * @param document
@@ -77,7 +77,7 @@ exports.getAllRequest = async () =>
    await DBInstance.join(UserTableName, tableName + '.author_id', UserTableName + '.user_id')
       .from(tableName)
       .select()
-      .orderBy('created_at', 'desc')
+      .orderBy(tableName + '.created_at', 'desc')
 
 /**
  * @param request_id
