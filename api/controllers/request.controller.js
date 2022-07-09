@@ -95,6 +95,7 @@ exports.createRequest = async (req, res) => {
          type: 'REQUEST',
          sender_id: `user_${fetch[0].user_id}`,
          receiver_id: `chief`,
+         request_id: response[0]
       })
       res.json(response)
    } catch (e) {
