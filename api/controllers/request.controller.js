@@ -149,7 +149,7 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
 exports.updateRequest = async (req, res) => {
    try {
       const res = await RequestModel.updateRequest(req.body, req.params.id)
-      const response = (await RequestModel.getRequestWhere({ request_id: res[0] }))[0]
+      const response = (await RequestModel.getRequestWhere({ request_id: req.params.id }))[0]
       if (req.body.validator_id || req.body.request_status === 'PRINTED')
          notifyThis(req.body.validator_id, req.body.request_status, response, req.body.printer_id)
       res.json(response)
