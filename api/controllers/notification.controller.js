@@ -6,7 +6,7 @@ const socket = require("../config/socket-client.config");
 
 exports.getNotifications = async (req, res) => {
     try{
-        const response = await NotificationModel.getNotificationWhere({receiver_id: req.params.user_id})
+        const response = await NotificationModel.getNotificationsWhere({receiver_id: req.params.user_id})
         res.json(response)
     }catch(e){
         console.log(e)
