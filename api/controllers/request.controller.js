@@ -122,6 +122,7 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
       default:
          const validator = (await UserModel.getUserWhere({ user_id: validator_id }))[0]
          if (status === 'VALIDATE') {
+            title = 'Request validated'
             message = `${validator.sex === 'F' ? 'Md.' : 'Mr.'} ${validator.lastname} ${
                validator.firstname
             } are validate your request that contain documents to print.`
