@@ -6,7 +6,8 @@ const socket = require('../config/socket-client.config')
 
 exports.getNotifications = async (req, res) => {
    try {
-      const re = req.role === 'Printer' ? 'printer_' + req.user_id : 'user_' + req.user_id
+      const re =
+         req.role === 'Printer' ? 'printer_' + req.user_id : req.role === 'Chief' ? 'chief' : 'user_' + req.user_id
       const response = await NotificationModel.getNotificationsWhere({ receiver_id: re })
       res.json(response)
    } catch (e) {
