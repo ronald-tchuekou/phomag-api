@@ -55,7 +55,7 @@ require('./api/models/notification.model').createTable()
 require('./api/models/disponibility.model').createTable()
 
 // Services
-require('./service').getPersonnels()
+// require('./service').getPersonnels()
 
 // Routes
 app.get('/', (req, res) => {
