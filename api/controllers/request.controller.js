@@ -114,7 +114,7 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
       title = ''
    switch (status) {
       case 'PRINTED':
-         const printer = await PrinterModel.getPrinterServiceWhere({ printer_service_id: printer_id })
+         const printer = (await PrinterModel.getPrinterServiceWhere({ printer_service_id: printer_id }))[0]
          title = 'Request printed'
          message = `Printer service ${printer.service_name} are printed your request, the address of this service are : ${printer.service_address}.`
          break

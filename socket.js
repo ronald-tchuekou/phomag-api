@@ -36,13 +36,14 @@ module.exports = (server) => {
 async function NotifyUser(data) {
    if (data.type === 'REQUEST') {
       const request = (await RequestModel.getRequestWhere({ request_id: data.request_id }))[0]
-      console.log(request)
       const user = data.receiver_id.includes('printer')
          ? await PrinterModel.getPrinterServiceWhere({ printer_service_id: request.printer_id })
          : await UserModel.getUserWhere({
               user_id: data.receiver_id.includes('chief') ? request.validator_id : request.author_id,
            })
-      if (user && user.notification_token)
-         sendNotificationPush([user.notification_token], data.title, data.message, data)
+      if (user && user.notification_token){
+         const res = await sendNotificationPush([user.notification_token], data.title, data.message, data)
+         console.log(res, 'Tokens : ', user.notification_token)
+      }
    }
 }
