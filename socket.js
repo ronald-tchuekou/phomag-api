@@ -36,6 +36,7 @@ module.exports = (server) => {
 async function NotifyUser(data) {
    if (data.type === 'REQUEST') {
       const request = (await RequestModel.getRequestWhere({ request_id: data.request_id }))[0]
+      console.log(request)
       const user = data.receiver_id.includes('printer')
          ? await PrinterModel.getPrinterServiceWhere({ printer_service_id: request.printer_id })
          : await UserModel.getUserWhere({

@@ -136,7 +136,7 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
          break
    }
 
-   socket.emit('notify', {
+   const notify_data = {
       title: title,
       message: message,
       is_read: false,
@@ -144,7 +144,10 @@ const notifyThis = async (validator_id, status, request, printer_id) => {
       sender_id: validator_id ? 'user_' + validator_id : 'printer_' + printer_id,
       receiver_id: 'user_' + request.author_id,
       request_id: request.request_id,
-   })
+   }
+
+   console.log(notify_data)
+   socket.emit('notify', notify_data)
 }
 
 exports.updateRequest = async (req, res) => {
@@ -152,7 +155,7 @@ exports.updateRequest = async (req, res) => {
       await RequestModel.updateRequest(req.body, req.params.id)
       const response = await RequestModel.getRequestWhere({ request_id: req.params.id })
       if (req.body.validator_id || req.body.request_status === 'PRINTED')
-         notifyThis(req.body.validator_id, req.body.request_status, response, req.body.printer_id)
+         notifyThis(req.body.validator_id, req.body.request_status, response[0], req.body.printer_id)
       res.json(response)
    } catch (e) {
       console.log(e)
