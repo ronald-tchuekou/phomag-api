@@ -41,9 +41,9 @@ async function NotifyUser(data) {
          : await UserModel.getUserWhere({
               user_id: data.receiver_id.includes('chief') ? request.validator_id : request.author_id,
            })
-      if (user && user.notification_token){
-         const res = await sendNotificationPush([user.notification_token], data.title, data.message, data)
-         console.log(res, 'Tokens : ', user.notification_token)
+      if (user.length > 0 && user[0].notification_token) {
+         const res = await sendNotificationPush([user[0].notification_token], data.title, data.message, data)
+         console.log(res, 'Tokens : ', user[0].notification_token)
       }
    }
 }
