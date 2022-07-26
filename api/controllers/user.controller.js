@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
    try {
-      const response = await PrinterServiceModel.getUserWhere({ printer_service_id: req.params.id })
+      const response = await PrinterServiceModel.getUserWhere({ user_id: req.params.id })
       res.json(response)
    } catch (e) {
       console.log(e)
